@@ -9,7 +9,7 @@
 	<packaging>pom</packaging>
 
 	<name>tribe-touch-parent</name>
-	<description>Tribe Touch的父工程、聚合工程</description>
+	<description>Tribe Touch的父工程、聚合工程，打包时候可以执行该文件</description>
 
 	<modules>
 		<module>tribe-touch-utils</module>
