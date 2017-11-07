@@ -1,0 +1,33 @@
+.login-tab {
+	padding: 5px 10px;
+}
+
+.login-tab-item {
+	width: 50%;
+}
+
+.login-tab-desc {
+	margin-top: 5px;
+}
+
+.login-form {
+	padding: 0 5px;
+	background: #fff;
+}
+
+.find-password {
+	padding-right: 5px;
+	line-height: 30px;
+}
+
+.big-btn {
+	padding: 0 10px;
+	margin-bottom: 10px;
+}
+
+.code-img {
+	width: 80px;
+	margin-top: 10px;
+	height: 40px;
+	margin-left: 10px;
+}

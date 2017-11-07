@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+		<title></title>
+		<link rel="stylesheet" href="${appPath}/resource/css/main.css" />
+		
+		<script type="text/javascript">
+			// 当前项目的路径
+			var appPath="${appPath}";
+		</script>
+	</head>
+	<body>
+		<div id="rulePage" class="hide">
+			
+		</div>
+		<div id="hblbPage">
+			<header>
+				<img class="back" src="../../resource/images/back.png">
+				<span id="hbcity"><img class="to" src="../../resource/images/to.png"></span>
+			</header>
+
+
+
+			<ul class="ticket-list" id="flightList">
+
+			</ul>
+			<div class="blank50"></div>
+			<footer>
+				<div class="filter" id="sx"  align="center">
+					<img src="../../resource/images/filter.png">
+					<p>筛选</p>
+				</div>
+				<div class="time" id="time_px"  align="center" >
+					<img src="../../resource/images/time.png">
+					<p>时间</p>
+				</div>
+				<div class="price" id="price_px"  align="center">
+					<img src="../../resource/images/price.png">
+					<p>票价</p>
+				</div>
+			</footer>
+			<div id="sxBox" class="hide">
+				<div class="drkbg" onclick='$("#sxBox").fadeOut("500");$("body").attr("style","overflow-y:scroll");'></div>
+				<div class="fliter-box" >
+					<div class="fliter-box-head">
+						<span class="w-btn" id="reset">重置</span>
+						筛选
+						<span class="r-btn" id="confirm">确定</span>
+					</div>
+					<div class="fliter-box-lp">
+						<ul class="sxtj">
+							<li class="on" id="qfsj">起飞时间</li>
+							<li id="jx">机型</li>
+							<li id="gxhb">共享航班</li>
+							<li id="zfzz">直飞/中转</li>
+
+						</ul>
+					</div>
+					<div class="fliter-box-rp">
+						<ul id="qfsjinfo">
+							<li class ="bx">不限 <b class="checked"></b></li>
+							<li value="FIRST"> 
+								<span>06:00 - 12:00</span>
+								<b class="checked"></b>
+							</li>
+							<li value="SECOND"> 
+								<span>12:00 - 18:00</span>
+								<b class="checked"></b>
+							</li>
+							<li value="THIRD"> 
+								<span>18:00 - 24:00</span>
+								<b class="checked"></b>
+							</li>
+							<li value="FOURTH"> 
+								<span>00:00 - 06:00</span>
+								<b class="checked"></b>
+							</li>	
+						</ul>
+						<ul id="jxinfo" class="hide">
+						</ul>
+						<ul id="gxhbinfo" class="hide">
+							<li value="">包含 <b class="checked"></b></li>
+							<li value="false"> 
+								<span>不包含</span>
+								<b ></b>
+							</li>						
+						</ul>
+						<ul id="zfzzinfo" class="hide">
+							<li class ="bx">不限 <b class="checked"></b></li>
+							<li value="true"> 
+								<span>直飞</span>
+								<b class="checked"></b>
+							</li>
+							<li value="false"> 
+								<span>中转/经停</span>
+								<b class="checked"></b>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+			
+		<script type="text/javascript" src="${appPath}/resource/js/jquery/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="${appPath}/resource/js/touch/tool.js?v=5.0"></script>
+		<script src="${appPath}/resource/js/layer/layer.m.js"></script>
+		<script src="${appPath}/resource/js/touch/touch.js?v=16.0"></script>
+		<script type="text/javascript">
+
+			var flight_obj = JSON.parse( sessionStorage.flightList ); //缓存航班列表
+			var jx_obj = flight_obj.body.flightFilterCondition.planeModelList;
+
+			$(function(){
+				Init_hb();
+				setHTML_hblb();
+				
+			})
+
+
+		</script>
+	</body>
+</html>

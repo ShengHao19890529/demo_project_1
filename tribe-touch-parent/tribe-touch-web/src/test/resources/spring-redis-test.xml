@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd ">
+	
+	<bean id="jedisCluster" class="redis.clients.jedis.JedisCluster">
+		<constructor-arg index="0">
+			<set>
+				<bean name="nodes1" class="redis.clients.jedis.HostAndPort">
+					<constructor-arg index="0" value="${rediscluster1.host}"></constructor-arg>
+					<constructor-arg index="1" value="${rediscluster1.port}" type="int"></constructor-arg>
+				</bean>
+				<bean name="nodes2" class="redis.clients.jedis.HostAndPort">
+					<constructor-arg index="0" value="${rediscluster2.host}"></constructor-arg>
+					<constructor-arg index="1" value="${rediscluster2.port}" type="int"></constructor-arg>
+				</bean>
+				<bean name="nodes3" class="redis.clients.jedis.HostAndPort">
+					<constructor-arg index="0" value="${rediscluster3.host}"></constructor-arg>
+					<constructor-arg index="1" value="${rediscluster3.port}" type="int"></constructor-arg>
+				</bean>
+				<bean name="nodes4" class="redis.clients.jedis.HostAndPort">
+					<constructor-arg index="0" value="${rediscluster4.host}"></constructor-arg>
+					<constructor-arg index="1" value="${rediscluster4.port}" type="int"></constructor-arg>
+				</bean>
+				<bean name="nodes5" class="redis.clients.jedis.HostAndPort">
+					<constructor-arg index="0" value="${rediscluster5.host}"></constructor-arg>
+					<constructor-arg index="1" value="${rediscluster5.port}" type="int"></constructor-arg>
+				</bean>
+				<bean name="nodes6" class="redis.clients.jedis.HostAndPort">
+					<constructor-arg index="0" value="${rediscluster6.host}"></constructor-arg>
+					<constructor-arg index="1" value="${rediscluster6.port}" type="int"></constructor-arg>
+				</bean>
+			</set>
+		</constructor-arg>
+	</bean>
+
+</beans>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+  
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath:/spring-context.xml</param-value>
+  </context-param>
+  
+  <servlet>
+    <servlet-name>springDispatcher</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>classpath:/springMvc-servlet.xml</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>springDispatcher</servlet-name>
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+  
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  <listener>
+    <listener-class>
+            org.springframework.web.util.IntrospectorCleanupListener
+        </listener-class>
+  </listener>
+  
+  <filter>
+    <filter-name>CharacterEncodingFilter</filter-name>
+    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>UTF-8</param-value>
+    </init-param>
+    <init-param>
+      <param-name>forceEncoding</param-name>
+      <param-value>true</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>CharacterEncodingFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+  <!-- 通用过滤器，目前用户设置dubbo接口调用所需的会话Id和流水号Id -->
+  <filter>
+    <filter-name>CommonFilter</filter-name>
+    <filter-class>com.bw30.zsch.tribe.touch.system.filter.ParamFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>CommonFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+  <!-- 系统session过滤器，主要用于做登录校验操作 -->
+  <filter>
+    <filter-name>SystemSessionFilter</filter-name>
+    <filter-class>com.bw30.zsch.tribe.touch.system.filter.SystemSessionFilter</filter-class>
+    <!-- 不需要验证登录的请求 -->
+    <init-param>
+    	<param-name>noLoginUrl</param-name>
+    	<param-value>
+	    	/memberLogin,/noMemberLogin,/checkLogin,/goLoginPage,
+	    	/goHomePage,/queryHomeResourceInfo,/queryAlertDialogAd,
+	    	/queryPriceCalendar,/queryAllCity,/queryHotCity,
+	    	/queryCity,/clientAccessTouchChangeDate,/getPicVerifyCode,
+	    	/safeTransport.html,/help.html,/getPicCodeUrl,/sendMsgCode,
+	    	/goCityListPage
+    	</param-value>
+    </init-param>
+    <!-- 静态资源，免登陆 -->
+    <init-param>
+    	<param-name>staticResources</param-name>
+    	<param-value>
+	    	css,js,jpg,png,bmp,gif,jpeg,ico
+    	</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>SystemSessionFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+  <!-- 生成验证码的servlet配置 -->
+  <servlet>
+  	<servlet-name>PicVerifyCodeServlet</servlet-name>
+  	<servlet-class>com.bw30.zsch.tribe.touch.servlet.PicVerifyCodeServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>PicVerifyCodeServlet</servlet-name>
+  	<url-pattern>/getPicVerifyCode</url-pattern>
+  </servlet-mapping>
+  
+</web-app>

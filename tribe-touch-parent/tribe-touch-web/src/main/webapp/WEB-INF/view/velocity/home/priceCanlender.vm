@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimal-ui">
+	<title>选择日期</title>
+	<link rel="stylesheet" href="${appPath}/resource/css/public.css">
+	<link rel="stylesheet" href="${appPath}/resource/css/libs.css">
+	<link rel="stylesheet" href="${appPath}/resource/css/header.css">
+	<link rel="stylesheet" href="${appPath}/resource/css/dateList.css">
+	<script>
+	  var appPath="${appPath}";
+	</script>	
+</head>
+<body>
+	<div id="calander-list">
+		<div class="date-list-header">
+			<div class="header bg-danger">
+				<span class="back-btn" @click="back">
+					<i class="icon icon-fanhui"></i>
+				</span>
+				<div class="header-title text-center">选择日期</div>
+				<span class="more-btn"></span>
+			</div>
+		</div>
+		<div class="all-city-list" id="date-list" v-contact>
+			<div class="contacts-header"></div>
+			<!-- 通讯录 -->
+			<ul class="contacts-content">
+				<li class="contacts-group" v-for="calendar in calendarList">
+					<div class="contacts-group-title">{{ calendar.title }}</div>
+					<div class="contacts-group-item">
+						<ul class="weeks clearfix">
+							<li class="week-item" 
+									v-for="week in calendar.week" 
+									:class="{ 'text-warning': week.lazy }">{{ week.name }}</li>
+						</ul>
+						<div class="clearfix">
+							<div class="day-item" v-for="day in calendar.day" @click="selectItem(day)">
+								<a class="block" 
+									 :class="{ 'text-warning': day.lazy, 'text-muted': day.miss }">
+									 <div v-if="selectDay.time != day.time">{{ day.day ? day.day : '&nbsp;' }}</div>
+									 <div v-if="selectDay.time == day.time"
+									 	  class="selected-day"
+									 	  :class="{ 'bg-info': selectDay.time == day.time }">
+									 		<p class="text-white text-small">{{ day.day }}</p>
+									 		<p class="text-white text-small">{{ selectDay.direction == 1 ? '去程' : '返程' }}</p>
+									 </div>
+								</a>
+							</div>
+						</div>
+					</div>
+				</li>
+			</ul>
+			
+		</div>
+	</div>
+	<script src="${appPath}/resource/js/touch/contact.js"></script>
+	<script src="${appPath}/resource/js/touch/moment.min.js"></script>
+	<script src="${appPath}/resource/js/vue/vue.min.js"></script>
+	<script src="${appPath}/resource/js/touch/dateList.js"></script>
+</body>
+</html>

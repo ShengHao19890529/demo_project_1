@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>首页</title>
+	<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimal-ui">
+	<link rel="stylesheet" href="${appPath}/resource/css/public.css">
+	<link rel="stylesheet" href="${appPath}/resource/css/home.css">
+	<link rel="stylesheet" href="${appPath}/resource/css/swiper.min.css">
+	<link rel="stylesheet" href="${appPath}/resource/css/lazyPicker.css">
+	<link rel="stylesheet" href="${appPath}/resource/css/libs.css">
+	<link rel="stylesheet" href="${appPath}/resource/css/footer.css">
+	<script type="text/javascript">
+		// 当前项目的路径
+		var appPath="${appPath}";
+	</script>
+</head>
+<body>
+	<div id="home">
+		<div class="swiper-container ad-list" v-swiper:options="focusOptions">
+		  <div class="swiper-wrapper">
+		    <div class="swiper-slide ad-item" v-for="item in adList">
+		    	<a class="block">
+		    		<img :src="item.pic" :alt="item.title" class="img-responsive">
+		    	</a>
+		    </div>
+		  </div>
+		  <div class="swiper-pagination ad-pagination"></div>
+		</div>
+		<div class="announce-bg clearfix">
+			<div class="pull-left announce-icon">
+				<img src="../../resource/images/add.png" width="20" height="20">
+			</div>
+			<div class="pull-left announce-list-group">
+				<div class="swiper-container announce-list" v-swiper:options="announceOptions">
+					<ul class="swiper-wrapper">
+						<li v-for="announce in annoucementList" class="swiper-slide announce-item text-overflow">
+							<a :href="announce.activityUrl">
+								<span class="text-small text-info">{{ announce.content }}</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="pull-right user-status">
+				<span class="text-danger text-small" v-if="!user" @click="goLoginPage">登录/注册</span>
+				<span class="text-danger text-small" v-if="user">Hi,{{ user.name }}</span>
+			</div>
+		</div>
+		<div class="index-bg">
+			<div class="index-tab">
+				<div class="index-tab-item"
+						 :class="{ 'text-danger': tabValue == 1, 'text-muted': tabValue == 2 }"
+						 @click="tabValue = 1">单程</div>
+				<div class="index-tab-item"
+						 :class="{ 'text-danger': tabValue == 2, 'text-muted': tabValue == 1 }"
+						  @click="tabValue = 2">往返</div>
+				<div class="index-tab-bar" 
+						 :class="{ 'index-tab-bar-left': tabValue == 1, 'index-tab-bar-right': tabValue == 2 }">
+					&nbsp;
+				</div>
+			</div>
+			<!-- 地点跳转 -->
+			<div class="clearfix text-center list-group-item">
+				<div class="pull-left" @click="goCityList(1)">{{ start.name }}</div>
+				<span>
+					<i class="icon icon-shuaxin text-danger" @click="reversePlace">切换</i>
+				</span>
+				<div class="pull-right" @click="goCityList(2)">{{ end.name }}</div>
+			</div>
+			<!-- 时间选择 -->
+			<div class="clearfix list-group-item">
+				<div class="pull-left item-box" @click="goToDateList(1)">{{ startTime }}
+					<span class="text-small text-muted">{{ startTime | relativeTime }}</span>
+				</div>
+				<div class="pull-right item-box" 
+				     v-show="tabValue == 2" 
+				     style="display: none; padding-left: 10px;"
+				     @click="goToDateList(2)">{{ endTime }}
+					<span class="text-small text-muted">{{ endTime | relativeTime }}</span>
+				</div>
+			</div>
+			<!-- 人数选择 -->
+			<div class="relative">
+				<div class="clearfix list-group-item picker" v-picker:options="pickerOptions">
+					<div class="pull-left item-box">{{ adultNumber }}
+						<span class="text-small text-muted">成人(&ge;12岁)</span>
+					</div>
+					<div class="pull-right item-box" style="padding-left: 10px;">{{ childNumber }}
+						<span class="text-small text-muted">儿童(2-12岁)</span>
+					</div>
+				</div>
+				<span class="child-help-btn" @click="openDialog">
+					<i class="text-muted icon icon-help">help</i>
+				</span>
+			</div>
+			<div class="clearfix list-group-item">
+				<div class="from-group">
+					<div class="from-input">
+						<input type="text" placeholder="请输入促销码" class="text-small">
+					</div>
+				</div>
+			</div>
+			<div class="index-presearch">
+				<button class="btn btn-block btn-danger index-order-btn" @click="goToOrderFlight">预订搜索</button>
+				<div class="index-more-airline">
+					<div class="base-line">
+						<i class="icon text-danger"></i>
+						<a class="text-danger">常用航线</a>
+						<i class="icon text-danger"></i>
+					</div>
+				</div>
+			</div>
+			<!-- icon图标组 -->
+			<ul class="icon-grid">
+				<li class="grid-item" v-for="item in iconGridList">
+					<a class="text-danger" :href="item.href">
+						<i :class="item.icon"></i>
+						<p>{{ item.name }}</p>
+					</a>	
+				</li>
+			</ul>
+			<!-- 特价专场 -->
+			<div class="discount-ticket">
+				<h4 class="clearfix discount-ticket-title">
+					<span class="pull-left">
+						<i class="text-danger icon icon-panda"></i>
+						<span>特价机票</span>
+					</span>
+					<span class="pull-right text-danger">
+						<span>更多</span>
+						<i class="icon icon-more"></i>
+					</span>
+				</h4>
+				<ul class="ticket-list">
+					<li class="ticket-item" v-for="item in discountList">
+						<a :href="item.href" class="block">
+							<span class="discount-price bg-danger text-small text-white">{{ item.discount }}</span>
+							<p class="text-dark ticket-desc">
+								<span>{{ item.start }}</span>
+								<span>-</span>
+								<span>{{  item.end }}</span>
+							</p>
+							<div class="clearfix">
+								<span class="pull-left text-muted text-small">
+									{{ item.time }}
+								</span>
+								<span class="pull-right text-warning">
+									{{ item.rel_price }}
+								</span>
+							</div>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="footer">
+		 		<div class="tabbar">
+		 			<div class="tabbar-item tabbar-item-active">
+		 				<i>home</i>
+		 				<p class="text-small">订单管理</p>
+		 			</div>
+		 			<div class="tabbar-item tabbar-item-active">
+		 				<i>pay</i>
+		 				<p class="text-small">办理值机</p>
+		 			</div>
+		 			<div class="tabbar-item tabbar-item-active">
+		 				<i>vip</i>
+		 				<p class="text-small">川航会员</p>
+		 			</div>
+		 			<div class="tabbar-item tabbar-item-active">
+		 				<i>more</i>
+		 				<p class="text-small">更多</p>
+		 			</div>
+		 		</div>
+		</div>
+	</div>
+	<script src="${appPath}/resource/js/layer/lazyPicker.js"></script>
+	<script src="${appPath}/resource/js/touch/moment.min.js"></script>
+	<script src="${appPath}/resource/js/mobiscroll/swiper.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="${appPath}/resource/js/vue/vue.min.js"></script>
+	<script src="${appPath}/resource/js/touch/home.js"></script>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+		<title></title>
+		<link rel="stylesheet" href="${appPath}/resource/css/main.css" />
+		
+
+		<script type="text/javascript">
+			// 当前项目的路径
+			var appPath="${appPath}";
+		</script>
+	</head>
+	<body>
+		<div id="rulePage" class="hide">
+			
+		</div>
+		<div id="ddPage">
+			<header>
+				<img class="back" src="../../resource/images/back.png">
+				<!-- <span>订单信息确认</span> -->
+				
+			</header>
+			
+			<ul class="ticketinfo-list">
+				<li>
+					<p class="ticketinfo-list-head">
+						<span style="font-size: 14px;font-weight:600;">变更航班</span>
+					</p>
+
+					<p class="ticketinfo-list-head-nb" id="hb_city">
+						
+					</p>
+
+					<p class="ticketinfo-list-ps" id="hb_ps">
+						
+					</p>
+
+					<div class="content dashed" id="hb_datail">
+						
+					</div>
+
+					<div class="content dashed">
+						<p class="pr-man">成人</p>
+						<p class="pr-money"><span class="gray">手续费用:</span><span class="red adtreissueFee">￥180</span></p>
+						<p class="pr-money"><span class="gray">变更差额:</span><span class="red adtdifferFare">￥3100</span></p>
+						<p class="pr-money"><span class="gray">变更总额:</span><span class="red adtreissueAmt">￥1500</span></p>
+					</div>
+					<div class="content chlInfo hide">
+						<p class="pr-man">儿童</p>
+						<p class="pr-money"><span class="gray">手续费用:</span><span class="red chlreissueFee">￥180</span></p>
+						<p class="pr-money"><span class="gray">变更差额:</span><span class="red chldifferFare">￥3100</span></p>
+						<p class="pr-money"><span class="gray">变更总额:</span><span class="red chlreissueAmt">￥1500</span></p>
+					</div>
+					
+				</li>
+			</ul>
+
+			<ul class="psinfo-list">
+				<li>
+					<div class="info-head cjr">
+						<span class="info-head-title">乘机人</span>
+						<span class="gray">限成人<span class="red adtnum" >2</span>/儿童<span class="red chlnum" >1</span></span>
+					</div>
+					<div class="cjr-info-dd"  id="cjrInfo">
+					</div>
+				</li>
+			</ul>
+
+			<div class="gq-rule">
+				<input id="isRead" type="checkbox"> 
+				<p class="gray" >我已阅读并接受此票价的<span class="blue" id="safeRule">《购票、旅行安全运输的相关条款》</span>、<span class="blue" id="helpRule">《旅客、行李国内运输总条件》</span></p>
+			</div>
+
+			<div id="gqjine" class="hide">
+				<div class="drkbg" onclick='$("#gqjine").fadeOut("500");$("body").attr("style","overflow-y:scroll");'></div>
+				<div class="gq-price-info">
+					<div>
+						<p class="gray p1">成人（变更总价￥<span id="adtamount"></span>）</p>
+						<p class="gq-price-money"><span >总额:</span><span class="red adtreissueAmt" >￥</span></p>
+						<p class="gq-price-money"><span >手续费:</span><span class="red adtreissueFee" >￥</span></p>
+						<p class="gq-price-money"><span >变更费:</span><span class="red adtdifferFare">￥</span></p>
+						
+						<p class="gq-price-man">x<span class="adtnum"></span>人</p>
+					</div>
+					<div class="chlInfo hide">
+						<p class="gray p1">儿童（变更总价￥<span id="chlamount"></span>）</p>
+						<p class="gq-price-money"><span >总额:</span><span class="red chlreissueAmt">￥</span></p>
+						<p class="gq-price-money"><span >手续费:</span><span class="red chlreissueFee">￥</span></p>
+						<p class="gq-price-money"><span >变更费:</span><span class="red chldifferFare">￥</span></p>
+						
+						<p class="gq-price-man" >x<span class="chlnum">2</span>人</p>
+					</div>
+				</div>
+			</div>
+				
+
+			<div class="blank50">
+				
+			</div>
+
+			<div class="ddconfirm"> 
+				<div class="detail">
+					<span class="red-left" id="payamount"></span>
+					<div class="rs">
+						<div>
+							<img src="../../resource/images/rs.png">
+						</div>
+						
+						<span class="red" id="passamount"></span>
+					</div>
+				</div>
+				<div class="btn" id="ddtjbtn">提交订单</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="${appPath}/resource/js/jquery/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="${appPath}/resource/js/touch/tool.js?v=5.0"></script>
+		<script src="${appPath}/resource/js/layer/layer.m.js" ></script>
+		<script src="${appPath}/resource/js/touch/touch.js?v=16.0" ></script>
+		<script type="text/javascript">
+
+			//sessionStorage.cjrInfo 乘机人信息 sessionStorage.hbInfo 航班信息
+			console.log(sessionStorage.cjrInfo);
+			console.log(sessionStorage.hbInfo);
+			
+			var cjrObj = JSON.parse(sessionStorage.cjrInfo),hbObj = JSON.parse(sessionStorage.hbInfo2),totalAmount=0;
+			$(function(){
+				Init_hb();
+				setGQQRHtml();
+				setBind_gqqr();
+			})
+
+
+			
+
+		</script>
+
+	</body>
+</html>

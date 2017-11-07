@@ -1,0 +1,133 @@
+.static-header {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 5;
+	width: 100%;
+}
+
+.scroll-content {
+	padding-top: 122px;
+}
+
+.search-city {
+	padding: 6px 10px;
+	background: rgb(243, 243, 243);
+}
+
+.search-input {
+	width: 100%;
+	background: #fff;
+	border-radius: 4px;
+	line-height: 30px;
+	border: 0;
+	padding: 0 5px;
+}
+
+.arrive-tab {
+	width: 100%;
+	border-bottom: 1px rgb(236, 236, 236);
+	position: relative;
+	background: #fff;
+}
+
+.arrive-tab:after {
+	content: "";
+	display: block;
+	clear: both;
+}
+
+.arrive-tab-item {
+	width: 50%;
+	float: left;
+	line-height: 40px;
+	position: relative;
+	text-align: center;
+}
+
+.arrive-tab-item:first-child:after {
+	content: "";
+	width: 2px;
+	height: 80%;
+	background: rgb(236, 236, 236);
+	position: absolute;
+	top: 10%;
+	right: 0;
+}
+
+.arrive-tab-bar {
+	position: absolute;
+  background: rgb(191, 0, 8);
+  text-align: center;
+  width: 50%;
+  height: 3px;
+  bottom: -1px;
+  transition: right 0.3s cubic-bezier(0.35, 0, 0.25, 1), 
+  						left 0.3s cubic-bezier(0.35, 0, 0.25, 1) 0.09s;
+}
+
+.arrive-tab-bar-left {
+	left: 0%;
+	right: 50%;
+}
+
+.arrive-tab-bar-right {
+	left: 50%;
+	right: 0;
+}
+
+.hot-city {
+	padding: 5px 10px;
+}
+
+.hot-city-title {
+	line-height: 30px;
+}
+
+.hot-city .list-group {
+	margin-top: 5px;
+	width: 90%;
+}
+
+.hot-city .list-group:after {
+	content: "";
+	display: block;
+	clear: both;
+}
+
+.hot-city .list-group-item {
+	width: 33.3333%;
+	float: left;
+	line-height: 28px;
+	text-align: center;
+	padding-right: 10px;
+	margin-bottom: 10px;
+}
+
+.hot-city .list-group-item .block {
+	border-radius: 4px;
+	font-size: 12px;
+}
+
+.contacts-group-item .city-item {
+	border-bottom: 1px rgb(243, 243, 243) solid;
+}
+
+.search-result-list {
+	position: absolute;
+  top: 123px;
+  left: 0;
+  z-index: 100;
+  height: 100%;
+  width: 100%;
+  background: #f0f1f5;
+}
+
+.search-result-list .contacts-group {
+	padding-top: 0;
+	background: #fff;
+}
+
+.search-result-list .contacts-group-item {
+	border-bottom: 1px #eee solid;
+}

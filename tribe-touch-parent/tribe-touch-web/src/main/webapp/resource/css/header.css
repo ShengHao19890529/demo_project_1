@@ -1,0 +1,30 @@
+.header {
+	width: 100%;
+	position: relative;
+	height: 40px;
+	line-height: 30px;
+	padding: 5px;
+}
+
+.header .back-btn {
+	position: absolute;
+	width: 30px;
+	height: 30px;
+	top: 8px;
+	left: 5px;
+	color: #fff;
+}
+
+.header .more-btn {
+	position: absolute;
+	/*width: 30px;*/
+	/*height: 30px;*/
+	top: 5px;
+	right: 5px;
+	color: #fff;
+}
+
+.header .header-title {
+	padding: 0 30px;
+	color: #fff;
+}

@@ -1,0 +1,205 @@
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	font-size: 14px;
+}
+
+body, html {
+	background: rgb(240, 241, 245);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-overflow-scrolling: touch;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+}
+
+input::-webkit-input-placeholder {
+	color: rgb(195, 195, 195);
+}
+
+
+
+a {
+	text-decoration: none;
+}
+
+button {
+	border: none;
+}
+
+ul, ol {
+	list-style: none;
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+}
+
+/* 文本大小，颜色 */
+.text-danger {
+	color: rgb(191, 0, 8);
+}
+
+.text-info {
+	color: rgb(14, 110, 184);
+}
+
+.text-muted {
+	color: rgb(181, 181, 181);
+}
+
+.text-dark {
+	color: rgb(140, 140, 140);	
+}
+
+.text-warning {
+	color: rgb(240, 137, 93);
+}
+
+.text-white {
+	color: #fff;
+}
+
+.text-center {
+	text-align: center;
+}
+
+.text-left {
+	text-align: left;
+}
+
+.text-right {
+	text-align: right;
+}
+
+.text-small {
+	font-size: 12px;
+}
+
+.text-overflow {
+	width: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+/* 背景色 */
+.bg-danger {
+	background: rgb(191, 0, 8);
+}
+
+.bg-white {
+	background: #fff;
+}
+
+.bg-info {
+	background: rgb(14, 110, 184);
+}
+
+/* 浮动相关 */
+.clearfix:after {
+	content: "";
+	display: block;
+	clear: both;
+}
+
+.clearfix:before {
+	content: "";
+	display: block;
+	clear: both;
+}
+
+.pull-left {
+	float: left;
+}
+
+.pull-right {
+	float: right;
+}
+
+/* 按钮相关 */
+.btn-block {
+	display: block
+}
+
+.btn {
+	width: 100%;
+	padding: 5px 10px;
+	line-height: 20px;
+}
+
+.btn-info {
+	background: #fff;
+	border: 1px rgb(14, 110, 184) solid;
+	color: rgb(14, 110, 184);
+	text-align: center;
+}
+
+.btn-danger {
+	background: rgb(191, 0, 8);
+	color: #fff;
+	text-align: center;
+}
+
+.btn-info-active {
+	background: rgb(14, 110, 184);
+	color: #fff;
+}
+
+.btn-radius {
+	border-radius: 6px;
+}
+
+/* 表单相关（简易版） */
+.form-group {
+	line-height: 40px;
+	border-bottom: 1px rgb(243, 244, 247) solid;
+
+}
+
+.form-group:after {
+	content: "";
+	display: block;
+	clear: both;
+}
+
+.form-group:before {
+	content: "";
+	display: block;
+	clear: both;
+}
+
+.form-label {
+	width: 55px;
+	float: left;
+}
+
+.form-input {
+	float: left;
+}
+
+.form-input > input {
+	border: none;
+}
+
+
+/* 元素属性相关 */
+.block {
+	display: block;
+}
+
+.inline-block {
+	display: inline-block;
+}
+
+.relative {
+	position: relative;
+}
+
+.tabel-cell {
+	display: table-cell;
+}

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+		<title></title>
+		<link rel="stylesheet" href="${appPath}/resource/css/main.css" />
+		<link rel="stylesheet" href="${appPath}/resource/css/header.css">
+		<link rel="stylesheet" href="${appPath}/resource/css/public.css">
+		<link rel="stylesheet" href="${appPath}/resource/css/changeDatePassengerPage.css">
+		<link rel="stylesheet" href="${appPath}/resource/css/libs.css">
+		<style>
+			[v-cloak] {
+			  display: none;
+			}
+		</style>	
+		<script type="text/javascript">
+			// 当前项目的路径
+			var appPath="${appPath}";
+			var telephoneNo="${telephoneNo}";
+			if(telephoneNo=="${telephoneNo}"){
+				telephoneNo="null";
+			}
+			sessionStorage.setItem("telephoneNo",telephoneNo);
+		</script>
+
+	</head>
+	<body>
+		<div class="container" id="change-passenge" v-cloak>
+		<div class="header bg-danger"></div>
+		<div class="title">
+			<span>选择变更航班</span>
+			<span class="text-muted text-small">请选择一个航班</span>
+		</div>
+		<ul class="list-group">
+			<li class="list-group-item" 
+				  v-for="flight in ticketCanChangeList"
+				  @click="changeFlight(flight);">
+				<div class="text-muted text-small flight-number">{{ flight.marketingAirline }}{{ flight.flightNo }}</div>
+				<div class="media">
+					<div class="media-body">
+						<div class="child-media">
+							<div class="child-media-left">
+								<div class="airpot">{{ flight.takeOffAirport }}{{ flight.takeOffTerminal }}</div>
+								<p>
+									<span class="text-muted text-small">{{ flight.takeOffTime | timeFormat('hh:mm MM-DD') }}</span>
+									<span class="text-muted text-small">{{ flight.takeOffTime | relativeTime('YYYY-MM-DD hh:mm:ss') }}</span>
+								</p>
+							</div>
+							<div class="child-media-body">
+								<span class="line"></span>
+							</div>
+							<div class="child-media-right">
+								<div class="airpot">{{ flight.arriveAirport }}{{ flight.arriveTerminal }}</div>
+								<p class="text-little-muted text-small">
+									<span class="text-muted text-small">{{ flight.arriveTime | timeFormat('hh:mm MM-DD') }}</span>
+									<span class="text-muted text-small">{{ flight.takeOffTime | relativeTime('YYYY-MM-DD hh:mm:ss') }}</span>
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="media-right">
+						<img src="../../resource/images/unchecked.png" v-show="flight.id != checkFlightModel.id">
+						<img src="../../resource/images/checked.png" v-show="flight.id == checkFlightModel.id">
+					</div>
+				</div>
+			</li>
+		</ul>
+		<div class="title">
+			<span>选择乘机人</span>
+			<span class="text-muted">可选择多个乘机人</span>
+		</div>
+		<ul class="list-group">
+			<li class="list-group-item" 
+					v-for="(user, $index) in userList"
+					@click="changeUser(user)">
+				<div class="media">
+					<div class="media-left user-index">
+						<span class="inlind-block">{{ $index + 1 }}</span>
+					</div>
+					<div class="media-body user-body">
+						<div class="user-info">
+							<span>姓名：</span>
+							<span>{{ user.surnName }}（{{ user.passengerType | passengerType }}）</span>
+						</div>
+						<div class="card-info">
+							<span>{{ user.docType | docType }}：</span>
+							<span>{{ user.docId }}</span>
+						</div>
+					</div>
+					<div class="media-right">
+						<img src="../../resource/images/unchecked.png" v-show="!user.check">
+						<img src="../../resource/images/checked.png" v-show="user.check">
+					</div>
+				</div>
+			</li>
+		</ul>
+		<div class="change-btn" @click="postChangeFlight">确认变更申请</div>
+	</div>
+	<script src="${appPath}/resource/js/touch/moment.min.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="${appPath}/resource/js/vue/vue.min.js"></script>
+	<script src="${appPath}/resource/js/touch/changeDatePassengerPage.js?v=4.0"></script>
+
+	
+	
+	
+	
+	
+	
+	
+		<!-- <header>
+		</header>
+		<div id="orderid" value="1000" style="display:none;"></div>
+		<p class="black-t">选择变更航班<span class="gray">请选择一个航班</span></p>
+
+		<div class="ticketinfo-bg-list" >
+			<div id="hblist">
+
+			</div>
+		</div>
+		
+		<p class="black-t">选择乘机人<span class="gray">可选择多个乘机人</span></p>
+
+		<div class="ticketinfo-bg-list">
+			<div id="cjrlist">
+					
+			</div>
+		</div>
+
+		<div class="bluebtn mag20" id="gqstep1btn">确认变更申请</div>	
+		<script type="text/javascript" src="${appPath}/resource/js/jquery/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="${appPath}/resource/js/touch/tool.js?v=3.0"></script>
+		<script src="${appPath}/resource/js/layer/layer.m.js" ></script>
+		<script src="${appPath}/resource/js/touch/touch.js?v=16.0" ></script>
+		<script type="text/javascript">
+			sessionStorage.orderId = getQueryString("orderId");
+			sessionStorage.jsessionid = getSessionId();
+			var obj_ajax = {}; 
+		
+			$(function(){
+			  	
+				Init_gqsq();//调用方法集合
+		
+			});
+			
+
+			
+			
+			
+		</script> -->
+		
+	</body>
+</html>

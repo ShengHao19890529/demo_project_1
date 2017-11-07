@@ -1,0 +1,19 @@
+.footer {
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	z-index: 5;
+}
+
+.footer .tabbar {
+	width: 100%;
+	display: table;
+	background: #fff;
+}
+
+.footer .tabbar .tabbar-item {
+	display: table-cell;
+	text-align: center;
+	padding: 5px 0;
+}

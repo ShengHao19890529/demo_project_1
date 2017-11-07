@@ -1,0 +1,121 @@
+##-----------------------JS-------------------------------------------##
+#macro (getJs)resource/js#end
+#macro (getJs1)resource/ipad/js#end
+##-----------------------CSS------------------------------------------##
+#macro ( getCssFolder )resource/css#end
+#macro( getBodyCss ) resource/css/body.css#end
+#macro( getPortalCss )resource/css/style.css#end
+##-----------------------images-------------------------------------------##
+#macro( getImage $filename )resource/images/$filename #end
+#macro( getPic )resource/images#end
+#macro( getImageFolder )resource/images#end
+##-----------------------URI-------------------------------------------##
+############http方式根路径
+#macro( getWebAppRootPath )http://172.25.104.229:8080/tribe-touch-web/#end
+##########https方式根路径
+#macro( getSecureWebAppRootPath )https://m.sichuanair.com/zsch_touch/#end
+#macro( getPayChannelInfoURI $methodname )#getSecureWebAppRootPath()sorder.do?op=$methodname#end
+#macro( getNewPayOrderURI $methodname )#getSecureWebAppRootPath()sorder.do?op=$methodname#end
+#macro( getSubmitPayURI $methodname )#getSecureWebAppRootPath()sorder.do?op=$methodname#end
+
+####需https方式访问的URL开始
+#macro( getMemberSLoginURI $methodname )#getSecureWebAppRootPath()slogin.do?op=$methodname
+#end
+#macro( getUpdateMemeberURI $methodname )#getSecureWebAppRootPath()smember.do?op=$methodname
+#end
+##修改密码
+#macro( getUpdatePwdURI $methodname )#getSecureWebAppRootPath()smember.do?op=$methodname
+#end
+##忘记密码
+#macro( getUpdatePsdURI $methodname )#getSecureWebAppRootPath()slogin.do?op=$methodname
+#end
+#macro( getSubmitOrderURI $methodname )#getSecureWebAppRootPath()sorder.do?op=$methodname
+#end
+#macro( getPayOrderURI $methodname )#getSecureWebAppRootPath()sorder.do?op=$methodname
+#end
+#macro( getOrderManagementListURI $methodname )#getSecureWebAppRootPath()sorderManagement.do?op=$methodname
+#end
+#macro( getOrderDetailURI $methodname )#getSecureWebAppRootPath()sorderManagement.do?op=$methodname
+#end
+#macro( getChangeOptionsURI $methodname )#getSecureWebAppRootPath()sorderManagement.do?op=$methodname
+#end
+#macro( getRefundTicketURI $methodname )#getSecureWebAppRootPath()sorderManagement.do?op=$methodname
+#end
+#macro( getChangeTicketURI $methodname )#getSecureWebAppRootPath()sorderManagement.do?op=$methodname
+#end
+#macro( getConfirmRefundURI $methodname )#getSecureWebAppRootPath()sorderManagement.do?op=$methodname
+#end
+#macro( getListJourneyURI $methodname )#getSecureWebAppRootPath()sboarding.do?op=$methodname
+#end
+#macro( getShowJourneyDetailURI $methodname )#getSecureWebAppRootPath()sboarding.do?op=$methodname
+#end
+#macro( getCheckInURI $methodname )#getSecureWebAppRootPath()sboarding.do?op=$methodname
+#end
+####需https方式访问的URL结束
+
+#macro( getDefaultHomeURI )#getWebAppRootPath()login.do?op=index
+#end
+#macro( getLoginGetValidURI )#getWebAppRootPath()login.do?op=getURLOutput#end
+#macro( getQueryFlightURI $methodname )#getWebAppRootPath()queryflight.do?op=$methodname
+#end
+#macro( getOrderURI $methodname )#getWebAppRootPath()order.do?op=$methodname
+#end
+#macro( getSendMobileVerifyCode $methodname )#getWebAppRootPath()order.do?op=$methodname#end
+#macro( getOrderManagementURI $methodname )#getWebAppRootPath()orderManagement.do?op=$methodname
+#end
+
+#macro( getMemberURI $methodname )#getWebAppRootPath()member.do?op=$methodname#end
+#macro( getExchangeURI $methodname )#getWebAppRootPath()exchange.do?op=$methodname#end
+#macro( loginURI $methodname )#getWebAppRootPath()login.do?op=$methodname
+#end
+#macro( getMileagemanageURI $methodname )#getWebAppRootPath()mileagemanage.do?op=$methodname
+#end
+#macro( travelmateURI $methodname )#getWebAppRootPath()travelmate.do?op=$methodname
+#end
+#macro( getBoardingURI $methodname )#getWebAppRootPath()boarding.do?op=$methodname
+#end
+#macro( getFlightStatusURI $methodname )#getWebAppRootPath()flightStatus.do?op=$methodname
+#end
+
+#macro( getShareURI $methodname )#getWebAppRootPath()share.do?op=$methodname
+#end
+#macro( getMoreURI $methodname )#getWebAppRootPath()more.do?op=$methodname
+#end
+#macro( getCouponURI $methodname )#getWebAppRootPath()coupon.do?op=$methodname#end
+##-----------------------分页-------------------------------------------##
+#macro( renderPageInfo $pagedModelList )
+<div style="height:50px;">
+	<p style="margin-top:18px;">
+	#if (${pagedModelList.pageId} > 1)
+		&nbsp;<a href="javascript:prev()" style="font-size:17px;">上一页</a>
+	#end
+	<a style="font-size:16px;">共$!{pagedModelList.totalCount}条&nbsp;第$!{pagedModelList.pageId}/$!{pagedModelList.pageCount}页&nbsp;</a>
+	<select name="pageList" onchange="_submitPaged(this.options[this.selectedIndex].value)" style="width:70px;font-size:17px;">
+		#foreach($p in [1..${pagedModelList.pageCount}])
+		  <option value="$p" style="font-size:17px;" #if ($p==${pagedModelList.pageId}) selected="true"#end>$p</option>
+		#end
+	</select>
+	#if (${pagedModelList.pageId} < ${pagedModelList.pageCount})
+		&nbsp;<a href="javascript:next()" style="font-size:17px;">下一页</a>
+	#end
+	</p>
+<div>
+#end
+
+
+
+#-----------------------查询航班请求地址---------开始----------------------------------##
+#macro( getCheckUpdateDateURI )#getWebAppRootPath()checkUpdateDate.do#end
+#macro( getPreQueryFlightURI )#getWebAppRootPath()preQueryFlight.do#end
+#macro( getCheckQueryFlightPicCodeFlagURI )#getWebAppRootPath()checkQueryFlightPicCodeFlag.do#end
+#macro( getQueryFlightIsPicCodeURI )#getWebAppRootPath()queryFlightIsPicCode.do#end
+#macro( getPreQuerySpecialFlightListURI )#getWebAppRootPath()preQuerySpecialFlightList.do#end
+#macro( getQuerySpecialFlightListURI )#getWebAppRootPath()querySpecialFlightList.do#end
+#macro( getQuerySpecialFlightCityListURI )#getWebAppRootPath()querySpecialFlightCityList.do#end
+#macro( getQueryFlightListURI )#getWebAppRootPath()queryFlightList.do#end
+#macro( getQueryFlightListForMonitorURI )#getWebAppRootPath()queryFlightListForMonitor.do#end
+#macro( getQueryCityListURI )#getWebAppRootPath()queryCityList.do#end
+#macro( getSearchCityByNameURI )#getWebAppRootPath()searchCityByName.do#end
+#macro( getPreCheckTicketURI )#getWebAppRootPath()preCheckTicket.do#end
+#macro( getCheckTicketURI )#getWebAppRootPath()checkTicket.do#end
+##-----------------------查询航班请求地址---------结束------------------------##

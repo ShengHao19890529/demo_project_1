@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>登录</title>
+	<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimal-ui">
+	
+	<link rel="stylesheet" href="${appPath}/resource/css/public.css" />
+	<link rel="stylesheet" href="${appPath}/resource/css/header.css" />
+	<link rel="stylesheet" href="${appPath}/resource/css/login.css" />
+	<link rel="stylesheet" href="${appPath}/resource/css/libs.css" />
+	
+	<script type="text/javascript">
+		// 当前项目的路径
+		var appPath="${appPath}";
+	</script>
+</head>
+<body>
+	<div class="container" id="login">
+		<!-- 页面头部  -->
+		<div class="header bg-danger">
+			<span class="back-btn" @click="back">
+				<img class="icon icon-back" src="../../resource/images/back.png" width="12" height="12"></i>
+			</span>
+			<div class="header-title text-center">登录</div>
+			<span class="more-btn"></span>
+		</div>
+		<!-- 选项卡切换  -->
+		<div class="login-tab">
+			<div class="clearfix">
+				<div class="pull-left login-tab-item btn btn-info text-small" 
+						 :class="{ 'btn-info-active': tabValue == 1 }"
+						 @click="tabValue = 1">会员登录</div>
+				<div class="pull-left login-tab-item btn btn-info text-small" 
+						 :class="{ 'btn-info-active': tabValue == 2 }"
+						 @click="tabValue = 2; getCodeImg(2)">手机动态密码登录</div>
+			</div>
+			<p class="text-small text-info text-center login-tab-desc">会员登录课享受更多优惠</p>
+		</div>
+		<!-- 会员登录表单 -->
+		<div class="login-form" v-show="tabValue == 1">
+			<!-- 账号 -->
+			<div class="form-group">
+				<div class="form-label">
+					<label for="user-name">账号</label>
+				</div>
+				<div class="form-input">
+					<input type="text" 
+								 id="user-name" 
+								 v-model.number="user.name"
+								 maxlength="11"  
+								 placeholder="会员号/手机号"
+								 class="text-small text-muted">
+				</div>
+			</div>
+			<!-- 密码 -->
+			<div class="form-group">
+				<div class="form-label">
+					<label for="user-password">密码</label>
+				</div>
+				<div class="form-input">
+					<input type="password" 
+								 id="user-password" 
+								 v-model.trim="user.password" 
+								 placeholder="请输入密码" 
+								 class="text-small text-muted">
+				</div>
+			</div>
+			<!-- code -->
+			<div class="form-group" v-if="codeImg">
+				<div class="form-label">
+					<label for="img-code">验证码</label>
+				</div>
+				<div class="form-input">
+					<input type="text" 
+					  		 id="img-code" 
+					  		 v-model="user.imgCode" 
+					  		 placeholder="点击图形刷新验证码"
+					  		 class="text-small">
+					<span @click="getCodeImg(1)" class="pull-right code-img">
+						<img :src="codeImg" >
+					</span>
+				</div>
+			</div>
+		</div>
+		<!-- 手机动态登录表单 -->
+		<div class="login-form" v-show="tabValue == 2" style="display: none">
+			<div class="form-group">
+				<div class="form-label">
+					<label for="user-phone">账号</label>
+				</div>
+				<div class="form-input">
+					<input type="tel" 
+								 id="user-phone" 
+								 v-model.number="user.phone"
+								 maxlength="11"  
+								 placeholder="手机号"
+								 class="text-small text-muted">
+				</div>
+			</div>
+			<div class="form-group" >
+				<div class="form-label">
+					<label for="img-code">验证码</label>
+				</div>
+				<div class="form-input">
+					<input type="text" 
+					  		 id="img-code" 
+					  		 v-model="user.commonImgCode" 
+					  		 placeholder="点击图形刷新验证码"
+					  		 class="text-small"
+					  		 :class="{ 'text-dark': user.commonImgCode, 'text-muted': !user.commonImgCode }">				
+				</div>
+				<span @click="getCodeImg(2)" class="pull-right code-img">
+					<img :src="commonImgCode">
+				</span>
+			</div>
+			<div class="form-group">
+				<div class="form-label">
+					<label for="phone-code">验证码</label>
+				</div>
+				<div class="form-input">
+					<input type="number" 
+								 id="phone-code" 
+								 v-model="user.phoneCode" 
+								 placeholder="请输入短信验证码"
+								 class="text-small text-muted">
+					<span @click="getPhoneCode">{{ phoneCode.text }}</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="text-right find-password">
+			<a href="" class="text-small text-info">找回密码</a>
+		</div>
+		<div class="big-btn">
+			<button class="btn btn-block btn-info-active btn-radius text-small" 
+							@click="login">登录</button>
+		</div>
+		<div class="big-btn">
+			<a class="btn btn-block btn-info btn-radius text-small" href="#">注册</a>
+		</div>
+
+	</div>
+	
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="${appPath}/resource/js/vue/vue.min.js"></script>
+	<script src="${appPath}/resource/js/touch/login.js"></script>
+	
+</body>
+</html>

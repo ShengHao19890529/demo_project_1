@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+    http://www.springframework.org/schema/beans/spring-beans-4.1.xsd 
+        http://code.alibabatech.com/schema/dubbo
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	<!-- 消费方应用名，用于计算依赖关系，不是匹配条件，不要与提供方一样 -->
+	<dubbo:application name="tribe_touch" logger="log4j" owner="shenghao" version="1.0" />
+	<dubbo:consumer timeout="30000" check="false" retries="0" filter="TribeSessionFilter"/>
+	<dubbo:provider owner="shenghao" retries="0" threads="100" timeout="120000" />
+	
+	<!-- 使用zookeeper注册中心暴露服务地址 -->
+	<dubbo:registry protocol="zookeeper" check="false" register="true" address="${dubbo.registry.ip_1}:${dubbo.registry.port_1},${dubbo.registry.ip_2}:${dubbo.registry.port_2},${dubbo.registry.ip_3}:${dubbo.registry.port_3}" />
+	<dubbo:protocol name="dubbo" port="${dubbo.protocol.port}" />
+	
+	<!-- tribe port提供的服务 id必须配置，spring的autowire是根据id找的 -->
+	<dubbo:reference id="TheTribeClientService" group="scal-tribe-app" interface="com.bw.mall.client.service.client.dubbo.TheTribeClientService"/>
+
+</beans>

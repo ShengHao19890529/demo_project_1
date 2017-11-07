@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+    http://www.springframework.org/schema/beans/spring-beans-4.1.xsd  
+    http://www.springframework.org/schema/mvc  
+	http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd
+    http://www.springframework.org/schema/context  
+    http://www.springframework.org/schema/context/spring-context-4.1.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop-4.1.xsd">
+
+	<context:component-scan base-package ="com.bw30.zsch.tribe.touch.*">
+		<context:exclude-filter type ="annotation" expression= "org.springframework.stereotype.Service" />
+	</context:component-scan >
+
+	<mvc:annotation-driven>
+        <mvc:message-converters>
+            <ref bean="stringHttpMessageConverter" />
+            <ref bean="fastJsonHttpMessageConverter" />
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+    <bean id="stringHttpMessageConverter"
+        class="org.springframework.http.converter.StringHttpMessageConverter">
+        <constructor-arg value="UTF-8" index="0"></constructor-arg>
+        <!-- 避免出现乱码 -->
+        <property name="supportedMediaTypes">
+            <list>
+                <value>text/plain;charset=UTF-8</value>
+            </list>
+        </property>
+    </bean>
+    
+    <bean id="fastJsonHttpMessageConverter"  
+        class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+        <property name="supportedMediaTypes">
+            <list>
+                <value>application/json;charset=UTF-8</value>
+                <!-- 避免IE出现下载JSON文件的情况 -->
+                <value>text/html;charset=UTF-8</value>
+            </list>
+        </property>
+    </bean>
+	
+	<!-- 拦截器配置 -->
+	<mvc:interceptors>
+	        <mvc:interceptor>
+	            <mvc:mapping path="/**"/>
+	            <bean class="com.bw30.zsch.tribe.touch.system.interceptors.ParamInterceptor"/>
+	        </mvc:interceptor>
+	</mvc:interceptors>
+	
+	
+	
+	
+	<!-- 静态资源映射过滤掉 -->
+	<mvc:resources mapping="/resource/js/**" location="/resource/js/" />
+	<mvc:resources mapping="/resource/css/**" location="/resource/css/" />
+	<mvc:resources mapping="/resource/images/**" location="/resource/images/" />
+	<mvc:resources mapping="/staticResources/**" location="/staticResources/" />
+	
+</beans>

@@ -1,0 +1,52 @@
+#calander-list {
+	padding-top: 40px;
+}
+
+.date-list-header {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 10;
+}
+
+#calander-list .contacts-header {
+	top: 40px;
+	text-align: center;
+}
+
+#calander-list .contacts-group-title {
+	text-align: center;
+}
+
+#calander-list .contacts-group-item {
+	padding: 0;
+}
+
+.week-item {
+	width: 14.2857%;
+	float: left;
+	text-align: center;
+	line-height: 25px;
+	background: rgb(227, 227, 227);
+}
+
+.day-item {
+	width: 14.2857%;
+	float: left;
+	text-align: center;
+}
+
+.selected-day {
+	display: -webkit-flex;
+	display: -moz-box;
+	display: -o-box;
+	display: -ms-flexbox;
+	display: flex;
+ 	padding: 5px;
+	flex-direction: column;
+}
+
+.selected-day > p {
+	line-height: 15px;
+}

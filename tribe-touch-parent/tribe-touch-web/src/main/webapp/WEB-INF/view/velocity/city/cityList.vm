@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>城市列表</title>
+	<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimal-ui">
+	<link rel="stylesheet" href="${appPath}/resource/css/public.css">
+	<link rel="stylesheet" href="${appPath}/resource/css/header.css">
+	<link rel="stylesheet" href="${appPath}/resource/css/cityList.css">
+	<link rel="stylesheet" href="${appPath}/resource/css/libs.css?v=0">
+	<script>
+	   var appPath="${appPath}";
+	</script>	
+</head>
+<body>
+	<div class="container" id="arrive-city">
+		<div class="static-header">
+		<!-- 页面头部  -->
+			<div class="header bg-danger">
+				<span class="back-btn" @click="back">
+					<i class="icon icon-back"><</i>
+				</span>
+				<div class="header-title text-center">{{ titleType == 1 ? '出发城市' : '到达城市' }}</div>
+				<span class="more-btn"></span>
+			</div>
+			<div class="search-city">
+				<form @submit="searchCity" >
+					<input type="search"
+								 class="search-input text-small"
+								 :class="{ 'text-left': searchFocus, 'text-center': !searchFocus }"
+								 placeholder="城市名/城市拼音/首字母" 
+								 v-model="keyword"
+								 @click="inputFocus"
+								 @blur="searchFocus = false"
+								 @input="searchCity">
+					<i clas="icon icon-search"></i>
+				</form>
+			</div>
+			<div class="arrive-tab">
+				<div class="arrive-tab-item"
+						 :class="{ 'text-danger': tabValue == 1 }"
+						 @click="tabValue = 1; currentHotCity = inlandHotCityList; currentAllCityList = inlandAllCityList">国内</div>
+				<div class="arrive-tab-item"
+						 :class="{ 'text-danger': tabValue == 2 }"
+						 @click="tabValue = 2; getInternationInfo(); currentHotCity = internationalHotCityList; currentAllCityList = internationalAllCityList">国际/港澳台</div>
+				<div class="arrive-tab-bar" 
+						 :class="{ 'arrive-tab-bar-left': tabValue == 1, 'arrive-tab-bar-right': tabValue == 2 }">
+					&nbsp;
+				</div>
+			</div>
+		</div>
+		<div class="scroll-content">
+			<div class="search-result-list" v-show="searchFocus">
+				<ul class="contacts-content">
+					<li v-for="city in searchResult" class="contacts-group">
+						<div class="contacts-group-item">
+							{{ city.name }}
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div>
+				<div class="all-city-list" id="inlind-city" v-contact:options="inlandOptions">
+					<div class="contacts-header"></div>
+					<!-- 热门城市 -->
+					<div class="contacts-group">
+						<div class="hot-city" v-if="currentHotCity.length">
+							<h5 class="text-small contacts-group-title">热门城市</h5>
+							<ul class="list-group">
+								<li class="list-group-item" v-for="city in currentHotCity">
+									<a class="block text-center bg-white"
+										 :class="{ 'text-muted': activiCityCode != city.code, 'text-info': activiCityCode == city.code }"
+										 @click="selectCity(city)"
+										 >{{ city.name }}</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+
+					<!-- 通讯录 -->
+					<ul class="contacts-content" v-for="group in currentAllCityList">
+						<li class="contacts-group">
+							<div class="contacts-group-title">{{ group.initial }}</div>
+							<div class="contacts-group-item" v-for="city in group.cityList">
+								<div class="city-item" @click="selectCity(city)">{{ city.name }}</div>
+							</div>
+						</li>
+					</ul>
+					
+					<!-- 侧边栏 -->
+					<div class="contacts-nav">
+						<ul class="contacts-nav-list" id="contact-nav">
+							<li class="nav-list-item">
+								<span class="text-info" alt="热门城市">热门</span>
+							</li>
+							<li class="nav-list-item" v-for="group in currentAllCityList">
+								<span class="text-info"  :alt="group.initial">{{ group.initial }}</span>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="${appPath}/resource/js/touch/contact.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="${appPath}/resource/js/vue/vue.min.js"></script>
+	<script src="${appPath}/resource/js/touch/cityList.js"></script>
+</body>
+</html>

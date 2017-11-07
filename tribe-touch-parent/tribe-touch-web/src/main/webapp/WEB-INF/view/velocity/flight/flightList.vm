@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>首页</title>
+	<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimal-ui">
+	<link rel="stylesheet" href="${appPath}/resource/css/public.css">
+	<link rel="stylesheet" href="${appPath}/resource/css/libs.css">
+	<link rel="stylesheet" href="${appPath}/resource/css/header.css">
+	<link rel="stylesheet" href="${appPath}/resource/css/footer.css">
+	<link rel="stylesheet" href="${appPath}/resource/css/orderFlight.css">
+	<script>
+		var appPath="${appPath}";
+	</script>
+</head>
+<body>
+	<div class="container" id="order-flight">
+		<div class="header bg-danger">
+			<span class="back-btn" @click="back">
+				<i class="icon icon-fanhui"></i>
+			</span>
+			<div class="header-title text-center">
+				<span>{{ placeInfo.takeoffAirportList[0].name }}</span>
+				<span> - </span>
+				<span>{{ placeInfo.arrivedAirportList[0].name }}</span>
+			</div>
+			<span class="more-btn"></span>
+		</div>
+		<div class="clearfix">
+			<ul class="pull-left date-list">
+				<li v-for="item in dateList" 
+						:class="{ 'bg-danger': item.time == orderParams.startTime }"
+						@click="orderParams.startTime = item.time; getOrderInfo()"
+						class="date-list-item">
+					<div class="text-small text-muted">{{ item.week | chinsesWeek }}</div>
+					<div class="text-small">{{ item.day }}</div>
+					<div class="text-small">{{ item.price | price }}</div>
+				</li>
+			</ul>
+			<div class="pull-right calendar-btn">
+				<i class="icon"></i>
+				<div>选择日期</div>
+			</div>
+		</div>
+		<!-- 主列表 -->
+		<ul class="list-group">
+			<li class="list-group-item" v-for="airline in flightList">
+				<div class="bg-white item-detail" @click="setItemValue(airline)">
+					<div class="clearfix">
+						<!-- 左侧内容 -->
+						<div class="pull-left left-ticket-detail">
+							<div class="flex">
+								<!-- 起飞 -->
+								<div class="flex-left">
+									<!-- 起飞时间 -->
+									<div class="text-left">{{ airline.airlineDetailList[0].airlineDetail.summary.departTime | timeFormat('hh:mm') }}</div>
+									<p class="text-small text-left text-muted flightsport">
+										<!-- 起飞机场 -->
+										<span>{{ placeInfo.takeoffAirportList[0].airport }}</span>
+										<!-- 起飞航站楼 -->
+										<span>{{ airline.airlineDetailList[0].airlineDetail.summary.departTerminal }}</span>
+									</p>
+								</div>
+								<div class="flex-body">
+									<!-- 用时 -->
+									<div class="text-center text-small text-muted distance">
+										{{ airline.airlineDetailList[0].airlineDetail.duration | duration }}
+									</div>
+									<div class="text-small text-center"
+											 v-if="airline.airlineDetailList[0].airlineDetail.summary.numStopOvers">
+										中转{{ airline.airlineDetailList[0].airlineDetail.summary.numStopOvers }}次
+									</div>
+									<div class="text-small text-center"
+											 v-if="airline.airlineDetailList[0].airlineDetail.summary.stopQuantity">
+										经停{{ airline.airlineDetailList[0].airlineDetail.summary.stopQuantity }}次</div>
+								</div>
+								<!-- 到达 -->
+								<div class="flex-right">
+									<!-- 到达时间 -->
+									<div class="text-left">
+										{{ airline.airlineDetailList[0].airlineDetail.summary.arrivalTime | timeFormat('hh:mm') }}
+										<span class="text-small text-info more-day">
+											{{ airline.airlineDetailList[0].airlineDetail.summary.departTime | moreDay(airline.airlineDetailList[0].airlineDetail.summary.arrivalTime) }}
+										</span>
+									</div>
+									<p class="text-small text-left text-muted flightsport">
+										<!-- 到达机场 -->
+										<span>{{ placeInfo.arrivedAirportList[0].airport }}</span>
+										<!-- 到达航站楼 -->
+										<span>{{ airline.airlineDetailList[0].airlineDetail.summary.arriveTerminal }}</span>
+									</p>
+								</div>
+							</div>		
+						</div>
+						<!-- 右侧内容 -->
+						<div class="pull-right right-price">
+							<p class="text-danger text-right" v-show="!showInterTax">{{ airline.airlineDetailList[0].totalPrice | price }}</p>
+							<p class="text-danger text-right" v-show="showInterTax">{{ airline.airlineDetailList[0].price | price }}</p>
+							<p class="text-right" v-show="showInterTax">税价:{{ airline.airlineDetailList[0].interTax | price }}</p>
+						</div>
+					</div>
+					<div class="clearfix">
+						<!-- 航班列表 -->
+						<ul class="pull-left clearfix">
+							<li class="pull-left" 
+									v-for="(flight, $index) in airline.airlineDetailList[0].flightNoSegment">
+								<div class="flex">
+									<!-- 如果列表数大于1 && 不是列表中的第一个才展示 -->
+									<div v-if="airline.airlineDetailList[0].flightNoSegment.length > 1 && $index != 0">-</div>
+									<img src="#" alt="" width="30" height="30">
+									<div class="text-small text-muted">{{ flight.operatingAirline  }}</div>
+									<div class="text-small text-muted">{{ flight.flegFlightNo }}</div>
+									<div class="share-icon" v-if="flight.shareFlight">共享</div>
+									<!-- 如果列表数大于2，不展示 -->
+									<div class="text-small text-muted"
+											 v-if="airline.airlineDetailList[0].flightNoSegment.length < 2">|</div>
+									<!-- 如果列表数大于2，不展示 -->
+									<div class="text-small text-muted"
+									     v-if="airline.airlineDetailList[0].flightNoSegment.length < 2">{{ flight.planeModel }}</div>
+								</div>
+							</li>
+						</ul>
+						<p class="pull-right text-small text-muted" v-if="airline.airlineDetailList[0].ticketNum">
+							还有{{ airline.airlineDetailList[0].ticketNum }}张
+						-</p>
+					</div>
+				</div>
+				<!-- 子列表, 启用transition动画 -->
+				<transition name="slide-fade">	
+					<ol class="flight-list-detail" v-show="airline.click">
+						<li class="bg-white flight-list-item" v-for="ticket in airline.price.fareFamilyTotal">
+							<div class="media">
+								<div class="media-body clearfix">
+									<div class="pull-left">
+										<div class="title">{{ ticket.fareFamilyTotal.name }}</div>
+										<p class="text-small text-info">使用条件</p>
+									</div>
+									<div class="pull-right">
+										<div class="text-danger text-right title">{{ ticket.totalPrice | price }}</div>
+										<p class="text-small text-danger text-right">{{ ticket.sequenceNumber || '0' }}张</p>
+									</div>
+								</div>
+								<div class="media-right bg-danger">
+									<div class="text-white">订</div>
+								</div>
+							</div>
+						</li>
+					</ol>
+				</transition>
+			</li>
+		</ul>
+		<!-- 底部 -->
+		<div class="footer">
+	 		<div class="tabbar">
+	 			<div class="tabbar-item tabbar-item-active" 
+	 					 style="width: 33.3333%"
+	 					 @click="showFilterDialog = true">
+	 				<i>home</i>
+	 				<p class="text-small">筛选</p>
+	 			</div>
+	 			<div class="tabbar-item tabbar-item-active" 
+	 					 style="width: 33.3333%"
+	 					 @click="orderList">
+	 				<i>pay</i>
+	 				<p class="text-small">时间</p>
+	 			</div>
+	 			<div class="tabbar-item tabbar-item-active" style="width: 33.3333%" v-if="!isInternationLine">
+	 				<i>vip</i>
+	 				<p class="text-small">票价</p>
+	 			</div>
+	 			<div class="tabbar-item tabbar-item-active" 
+	 					 style="width: 33.3333%" 
+	 					 v-if="isInternationLine"
+	 					 @click="showInterTax = !showInterTax">
+					<i>vip</i>
+					<p class="text-small">含税价</p>
+	 			</div>
+	 		</div>
+		</div>
+		<!-- 弹窗 -->
+		<div class="filter-bg" 
+				 v-show="showFilterDialog">
+			<div class="hide-filter" @click="showFilterDialog = false"></div>
+			<div class="filter-dialog">
+				<div class="filter-dialog-title">
+					<span class="left-btn">重置</span>
+					<span class="text-info" style="line-height: 25px;">筛选</span>
+					<span class="right-btn" @click="searchFlight">确定</span>
+				</div>
+				<div class="filter-dialog-content clearfix">
+					<ul class="pull-left left-list">	
+						<li @click="filterListId = 1"
+								:class="{ 'bg-white': filterListId == 1 }">
+							<div class="left-list-item">起飞时间</div>
+						</li>
+						<li @click="filterListId = 2"
+						    :class="{ 'bg-white': filterListId == 2 }">
+							<div class="left-list-item">机型</div>
+						</li>
+						<li @click="filterListId = 3"
+						    :class="{ 'bg-white': filterListId == 3 }">
+							<div class="left-list-item">共享航班</div>
+						</li>
+						<li @click="filterListId = 4"
+						    :class="{ 'bg-white': filterListId == 4 }"> 
+							<div class="left-list-item">直飞/中转</div>
+						</li>
+					</ul>
+					<div class="pull-right right-list">
+						<!-- 起飞时间 -->
+						<ul v-show="filterListId == 1">
+							<li @click="changeTakeOffAll">
+								<div class="clearfix">
+									<span class="pull-left">不限</span>
+									<span class="pull-right">
+										<img src="../../resource/images/unchecked.png" v-show="!takeOffModel.check">
+										<img src="../../resource/images/checked.png" v-show="takeOffModel.check">
+									</span>
+								</div>
+							</li>
+							<li v-for="takeOffTime in takeOffTimeList"
+									@click="changeTakeOffItem(takeOffTime)">
+								<div class="clearfix">
+									<span class="pull-left">{{ takeOffTime.time }}</span>
+									<span class="pull-right">
+										<img src="../../resource/images/unchecked.png" v-show="!takeOffTime.check">
+										<img src="../../resource/images/checked.png" v-show="takeOffTime.check">
+									</span>
+								</div>
+							</li>
+						</ul>
+						<!-- 机型, 需要从Api接口拿 -->
+						<ul v-show="filterListId == 2">
+							<li @click="changeFlightTypeAll">
+								<div class="clearfix">
+									<span class="pull-left">不限</span>
+									<span class="pull-right">
+										<img src="../../resource/images/unchecked.png" v-show="!flightTypeModel.check">
+										<img src="../../resource/images/checked.png" v-show="flightTypeModel.check">
+									</span>
+								</div>
+							</li>
+							<li v-for="type in flightTypeList"
+									@click="changeFlightTypeItem(type)">
+								<div class="clearfix">
+									<span class="pull-left">{{ type.flightType }}</span>
+									<span class="pull-right">
+										<img src="../../resource/images/unchecked.png" v-show="!type.check">
+										<img src="../../resource/images/checked.png" v-show="type.check">
+									</span>
+								</div>
+							</li>
+						</ul>
+						<!-- 共享航班 -->
+						<ul v-show="filterListId == 3">
+							<li @click="changeShareFlight">
+								<div class="clearfix">
+									<span class="pull-left">包含</span>
+									<span class="pull-right">
+										<img src="../../resource/images/unchecked.png" v-show="!isShareFlight">
+										<img src="../../resource/images/checked.png" v-show="isShareFlight">
+									</span>
+								</div>
+							</li>
+							<li @click="changeShareFlight">
+								<div class="clearfix">
+									<span class="pull-left">不包含</span>
+									<span class="pull-right">
+										<img src="../../resource/images/unchecked.png" v-show="isShareFlight">
+										<img src="../../resource/images/checked.png" v-show="!isShareFlight">
+									</span>
+								</div>
+							</li>
+						</ul>
+						<!-- 直飞/中转 -->
+						<ul v-show="filterListId == 4">
+							<li @click="isDirectFlight = null">
+								<div class="clearfix">
+									<span class="pull-left">不限</span>
+									<span class="pull-right">
+										<img src="../../resource/images/unchecked.png" v-show="isDirectFlight !== null">
+										<img src="../../resource/images/checked.png" v-show="isDirectFlight === null">
+									</span>
+								</div>
+							</li>
+							<li @click="isDirectFlight = 1">
+								<div class="clearfix">
+									<span class="pull-left">直飞</span>
+									<span class="pull-right">
+										<img src="../../resource/images/unchecked.png" v-show="isDirectFlight !== 1">
+										<img src="../../resource/images/checked.png" v-show="isDirectFlight === 1">
+									</span>
+								</div>
+							</li>
+							<li @click="isDirectFlight = 0">
+								<div class="clearfix">
+									<span class="pull-left">中转/经停</span>
+									<span class="pull-right">
+										<img src="../../resource/images/unchecked.png" v-show="isDirectFlight !== 0">
+										<img src="../../resource/images/checked.png" v-show="isDirectFlight === 0">
+									</span>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="${appPath}/resource/js/touch/moment.min.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="${appPath}/resource/js/vue/vue.min.js"></script>
+	<script src="${appPath}/resource/js/touch/orderFlight.js"></script>
+</body>
+</html>

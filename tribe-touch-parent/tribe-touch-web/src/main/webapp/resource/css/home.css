@@ -1,0 +1,211 @@
+#home {
+	padding-bottom: 50px;
+}
+
+.index-tab {
+	width: 100%;
+	line-height: 40px;
+	border-bottom: 1px rgb(242, 242, 242) solid;
+	position: relative;
+	background: #fff;
+}
+
+.index-tab:after {
+	content: "";
+	display: block;
+	clear: both;
+}
+
+.index-tab-item {
+	width: 50%;
+	float: left;
+	text-align: center;
+}
+
+.index-tab-bar {
+	position: absolute;
+  background: rgb(191, 0, 8);
+  text-align: center;
+  width: 30%;
+  height: 3px;
+  bottom: -1px;
+  transition: right 0.3s cubic-bezier(0.35, 0, 0.25, 1), 
+  						left 0.3s cubic-bezier(0.35, 0, 0.25, 1) 0.09s;
+}
+
+.index-tab-bar-left {
+	left: 10%;
+	right: 50%;
+}
+
+.index-tab-bar-right {
+	left: 60%;
+	right: 0;
+}
+
+.list-group-item {
+	padding: 5px 10px;
+	line-height: 30px;
+	border-bottom: 1px rgb(242, 242, 242) solid;
+	background: #fff;
+}
+
+.list-group-item .item-box {
+	width: 50%;
+	position: relative;
+}
+
+.list-group-item .item-box:first-child:after {
+	content: "";
+	position: absolute;
+	top: 10%;
+	right: 0;
+	height: 80%;
+	width: 1px;
+	background: rgb(242, 242, 242);
+}
+
+.index-presearch {
+	background: #fff;
+	padding: 25px 35px 0;
+}
+
+.pay-type-group {
+	line-height: 40px;
+}
+
+.pay-type-item {
+	width: 33.3333%;
+	float: left;
+	text-align: center;
+}
+
+.index-order-btn {
+	line-height: 20px;
+	border-radius: 40px;
+}
+
+.index-more-airline {
+	line-height: 40px;
+	text-align: center;
+}
+
+.base-line {
+	position: relative;
+}
+
+.base-line:before {
+	content: "";
+	position: absolute;
+	width: 30%;
+	height: 1px;
+	border-top: 1px rgb(191, 0, 8) dashed;
+	left: 10px;
+	top: 20px;
+}
+
+.base-line:after {
+	content: "";
+	position: absolute;
+	width: 30%;
+	height: 1px;
+	border-top: 1px rgb(191, 0, 8) dashed;
+	right: 10px;
+	top: 20px;
+}
+
+.icon-grid {
+	background: #fff;
+	margin-top: 2px;
+	width: 100%;
+}
+
+.icon-grid:after {
+	content: "";
+	display: block;
+	clear: both;
+}
+
+.grid-item {
+	line-height: 30px;
+	width: 25%;
+	float: left;
+	text-align: center;
+}
+
+.discount-ticket-title {
+	line-height: 40px;
+}
+
+.ticket-list {
+	width: 100%;
+	padding: 15px 0 15px 15px;
+	background: #fff;
+}
+
+.ticket-list:after {
+	content: "";
+	display: block;
+	clear: both;
+}
+
+.discount-price {
+	padding: 2px 4px;
+}
+
+.ticket-item {
+	width: 50%;
+	float: left;
+	padding-right: 15px;
+}
+
+.ticket-desc {
+	margin: 5px 0;
+}
+
+.ticket-item .block {
+	display: block;
+	border: 1px solid rgb(240, 240, 240); 
+}
+
+.ad-item {
+	min-height: 180px;
+}
+
+.announce-bg {
+	background: #fff;
+	padding: 2px 5px;
+}
+
+.announce-icon {
+	width: 10%;
+}
+
+.announce-list-group {
+	width: 70%;
+}
+
+.user-status {
+	width: 20%;
+}
+
+.index-bg {
+	padding: 5px 10px;
+}
+
+.child-help-btn {
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 40px;
+	height: 40px;
+	line-height: 40px;
+}
+
+.child-dialog-item {
+	margin-bottom: 5px;
+}
+
+.from-input > input {
+	border: 0;
+}

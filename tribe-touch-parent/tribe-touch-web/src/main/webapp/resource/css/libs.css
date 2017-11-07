@@ -1,0 +1,158 @@
+/* 弹窗相关 */
+.dialog-bg {
+	height: 100%;
+	width: 100%;
+	position: fixed;
+	z-index: 10;
+	top: 0;
+	left: 0;
+	background: rgba(0, 0, 0, .7)
+}
+
+.dialog {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background: rgba(255, 255, 255, 1);
+	color: #333;
+	border-radius: 8px;
+	min-width: 200px;
+	text-align: center;
+}
+
+.dialog-content {
+	padding: 10px 15px;
+	border-bottom: 1px rgb(233, 233, 233) solid;
+}
+
+.dialog-title {
+	font-size: 16px;
+	margin-bottom: 10px;
+}
+
+.dialog-footer {
+}
+
+.dialog-left-btn {
+	line-height: 30px;
+}
+
+.dialog-bg-hide {
+	animation: delayHide 5s;
+}
+
+@keyframes delayHide {
+	20% {
+		opacity: 1
+	}
+
+	80% {
+		opacity: 0;
+		display: none;
+	}
+
+	100% {
+		opacity: 0;
+		display: none;
+	}
+}
+
+/* loading */
+.loading-bg {
+	height: 100%;
+	width: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+}
+
+.loading {
+	width: 100px;
+	height: 100px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-top: -50px;
+	margin-left: -50px;
+	text-align: center;
+	line-height: 100px;
+	background: rgba(0, 0, 0, .7);
+	border-radius: 8px;
+}
+
+/* toast */
+
+.toast-bg {
+	position: fixed;
+	width: 100%;
+	bottom: 20px;
+	left: 0;
+}
+
+.toast {
+	text-align: center;
+}
+
+.toast-content {
+	display: inline-block;
+	max-width: 60%;
+	padding: 5px 10px;
+	border-radius: 20px;
+	background: rgba(0, 0, 0, .7);
+	color: #fff;
+}
+
+/* 仿IOS通讯录 */
+.all-city-list {
+	/*position: relative;*/
+}
+
+.contacts-header {
+	position: absolute;
+	top: 123px;
+	left: 0;
+	z-index: 5;
+	width: 100%;
+	line-height: 30px;
+	padding: 0 10px;
+	background: rgb(243, 243, 243);
+}
+
+.contacts-group {
+	position: relative;
+	padding-top: 30px;
+}
+
+.contacts-group-title {
+	position: absolute;
+	width: 100%;
+	top: 0;
+	left: 0;
+	background: rgb(243, 243, 243);
+	line-height: 30px;
+	padding: 0 10px;
+}
+
+.contacts-group-item {
+	background: #fff;
+	padding: 0 10px;
+	line-height: 40px;
+}
+
+.isHidden {
+	opacity: 0;
+}
+
+.isAnimated > .contacts-group-title {
+	top: auto;
+	bottom: 0;
+}
+
+.contacts-nav {
+	position: absolute;
+	text-align: center;
+	top: 50%;
+	right: 5px;
+	transform: translateY(-50%);
+}
